@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neil Oliver – Master of Weapons</title>
+  <link rel="icon" type="image/ico" href="assets/favicon.ico" sizes="128x128">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --card: #151b24;
+      --accent: #3b82f6;
+      --accent-hover: #2563eb;
+      --gold: #f59e0b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #1e293b;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #0f172a;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 20px;
+    }
+
+    .brand-title {
+      text-align: center;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .tab-nav {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      background: var(--card);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: 0.2s;
+    }
+
+    .tab-btn:hover { color: white; border-color: var(--accent); }
+    .tab-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fade 0.3s ease; }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Profile Hero */
+    .profile-hero {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      margin-bottom: 30px;
+      height: 420px;
+      background: url('assets/background.jpg') center top / cover no-repeat;
+    }
+
+    .profile-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(11,15,20,0.92) 10%, rgba(11,15,20,0.45) 50%, rgba(11,15,20,0.25) 100%);
+    }
+
+    .profile-content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 30px;
+    }
+
+    .profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--gold);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .profile-name { font-size: 2rem; font-weight: 700; color: white; }
+    .profile-role { color: var(--gold); font-weight: 600; margin-bottom: 6px; }
+    .profile-email { color: #93c5fd; font-size: 0.95rem; }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .card h3 { color: var(--gold); margin-bottom: 12px; font-size: 1.2rem; }
+    .card p, .card li { color: var(--muted); margin-bottom: 10px; }
+    .card ul { padding-left: 20px; }
+
+    .action-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .action-btn:hover { background: var(--accent-hover); }
+
+    /* PayHip Banner */
+    .payhip-banner {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      object-position: center 25%;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .payhip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .payhip-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .payhip-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+
+    .payhip-card h4 {
+      color: var(--gold);
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+
+    /* App Hub Banner */
+    .app-banner {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: center 20%;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    /* Media */
+    .media-wrapper {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    #videoPlayer, #audioPlayer {
+      width: 100%;
+      border-radius: 8px;
+      background: #000;
+    }
+
+    #videoPlayer {
+      max-height: 400px;
+    }
+
+    .track-list, .video-list {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .track-btn, .video-btn {
+      background: #1e293b;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .track-btn:hover, .video-btn:hover,
+    .track-btn.active, .video-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 600px) {
+      .profile-hero { height: 380px; }
+      .profile-name { font-size: 1.6rem; }
+      #videoPlayer { max-height: 260px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand-title">Neil Oliver – Master of Weapons</div>
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('profile', this)">Profile</button>
+    <button class="tab-btn" onclick="switchTab('documents', this)">Documents</button>
+    <button class="tab-btn" onclick="switchTab('payhip', this)">PayHip Store</button>
+    <button class="tab-btn" onclick="switchTab('app', this)">App</button>
+    <button class="tab-btn" onclick="switchTab('music', this)">Music</button>
+    <button class="tab-btn" onclick="switchTab('video', this)">Video Promos</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- PROFILE -->
+  <section id="tab-profile" class="tab-content active">
+    <div class="section-title">
+      <h2>Creator Profile</h2>
+    </div>
+
+    <div class="profile-hero">
+      <div class="profile-content">
+        <img src="assets/Profile.jpg" alt="Neil Oliver" class="profile-avatar" onerror="this.src='https://via.placeholder.com/120'">
+        <div class="profile-name">Neil Oliver</div>
+        <div class="profile-role">Creator of Master of Weapons</div>
+        <div style="color: #e2e8f0; font-size: 1.05rem; margin: 6px 0 4px 0;">
+          Weapon Access • Fight IQ • Real Constraints
+        </div>
+        <div class="profile-email">neil27oliver@gmail.com</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Why this exists</h3>
+      <p>Fighters don’t win on rankings or static statistics. They win by accessing their weapons under real pressure, fatigue, and chaos. Master of Weapons exists to measure that reality.</p>
+    </div>
+
+    <div class="card">
+      <h3>How it works</h3>
+      <p>Every fighter is scored on Timing, Adaptability, and Energy. These scores are then adjusted by Fight IQ, Injury/Wear, and Chaos resilience to reveal true operational access — not peak potential.</p>
+    </div>
+
+    <div class="card">
+      <h3>What you get</h3>
+      <ul>
+        <li>Matching Engine & advanced fight modeling</li>
+        <li>Fighter reports and division rankings</li>
+        <li>Couch to Cage training system</li>
+        <li>Scouting frameworks & betting matrices</li>
+        <li>Original music and promotional videos</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DOCUMENTS -->
+  <section id="tab-documents" class="tab-content">
+    <div class="section-title">
+      <h2>Core Documents</h2>
+    </div>
+
+    <div class="card">
+      <h3>1. Injury / Wear Drop (%)</h3>
+      <p>This input measures how much a fighter’s overall performance is reduced due to accumulated damage, past injuries, long layoffs, or age-related decline.</p>
+      <ul>
+        <li><strong>3–7%</strong> → Very fresh + active + durable</li>
+        <li><strong>8–12%</strong> → Normal wear & tear</li>
+        <li><strong>15–25%</strong> → Recent injuries or long layoff</li>
+        <li><strong>25–40%+</strong> → Significant damage history + age</li>
+      </ul>
+      <p><em>Higher % = bigger performance drop.</em></p>
+    </div>
+
+    <div class="card">
+      <h3>2. Matching Engine – Core Philosophy</h3>
+      <p>Traditional models ask “Who is the better striker?” We ask a different question:</p>
+      <p><strong>Can the fighter still access their win conditions when the fight becomes hard?</strong></p>
+      <p>The engine models drop-off curves, not historical peaks. It combines weapon access with Fight IQ, Chaos resilience, and Injury/Wear vectors.</p>
+    </div>
+
+    <div class="card">
+      <h3>3. Scouting Cheat Sheet – Key Multipliers</h3>
+      <p><strong>Fight IQ Layer</strong></p>
+      <ul>
+        <li>Elite Adaptability → 1.08</li>
+        <li>Normal Access → 1.00</li>
+        <li>Poor Discipline → 0.90</li>
+      </ul>
+      <p><strong>Chaos / War Factor</strong></p>
+      <ul>
+        <li>Thrives in Chaos → +10%</li>
+        <li>Neutral → 1.00</li>
+        <li>Collapses under Chaos → –15%</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PAYHIP -->
+  <section id="tab-payhip" class="tab-content">
+    <div class="section-title">
+      <h2>PayHip Store</h2>
+    </div>
+
+    <img src="assets/background.jpg" alt="Master of Weapons" class="payhip-banner" onerror="this.style.display='none'">
+
+    <div style="text-align:center; margin-bottom: 28px;">
+      <a href="https://payhip.com/MasterofWeapons" target="_blank" class="action-btn">Visit Full Store →</a>
+    </div>
+
+    <h3 style="color:var(--gold); margin-bottom:16px;">Free Examples</h3>
+
+    <div class="payhip-grid">
+      <div class="payhip-card">
+        <img src="assets/Dricus.jpg" alt="Free Fighter Profile" onerror="this.src='https://via.placeholder.com/240x180?text=Fighter+Profile'">
+        <h4>Free Fighter Profile</h4>
+        <a href="https://payhip.com/b/DmfFw" target="_blank" class="action-btn">View Free</a>
+      </div>
+
+      <div class="payhip-card">
+        <img src="assets/Betting.jpg" alt="Free Betting Card" onerror="this.src='https://via.placeholder.com/240x180?text=Betting+Card'">
+        <h4>Free Betting Card</h4>
+        <a href="https://payhip.com/b/IPezB" target="_blank" class="action-btn">View Free</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP HUB -->
+  <section id="tab-app" class="tab-content">
+    <h2 class="section-title">App Hub</h2>
+    <div class="card">
+      <img src="assets/Couch to Cage.jpg" alt="Couch to Cage" class="app-banner">
+      <h3 style="color:var(--gold);">Couch to Cage</h3>
+      <p style="color:var(--muted); margin-bottom: 14px;">
+        A progressive training system designed to take fighters from foundation to cage-ready. 
+        Built around structured phases, skill development, and the same Weapon Access principles 
+        used in the Master of Weapons Matching Engine.
+      </p>
+      <p style="color:var(--muted); margin-bottom: 18px;">
+        Clear progression. Honest feedback. Real preparation.
+      </p>
+      <a href="https://mma-x483.vercel.app/" target="_blank" class="action-btn">Launch App →</a>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="tab-music" class="tab-content">
+    <h2 class="section-title">Music Showcase</h2>
+    <div class="media-wrapper">
+      <audio controls id="audioPlayer"></audio>
+      <div class="track-list">
+        <button class="track-btn active" onclick="playTrack(0, this)">MMA History</button>
+        <button class="track-btn" onclick="playTrack(1, this)">Front End Anthem</button>
+        <button class="track-btn" onclick="playTrack(2, this)">Theme Song</button>
+        <button class="track-btn" onclick="playTrack(3, this)">Mindset Song</button>
+        <button class="track-btn" onclick="playTrack(4, this)">Gypsy War Dance</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section id="tab-video" class="tab-content">
+    <h2 class="section-title">Video Promos</h2>
+    <div class="media-wrapper">
+      <video controls id="videoPlayer" playsinline></video>
+      <div class="video-list">
+        <button class="video-btn active" onclick="playVideo(0, this)">Personal Promo</button>
+        <button class="video-btn" onclick="playVideo(1, this)">Promo Weapons 1</button>
+        <button class="video-btn" onclick="playVideo(2, this)">Promo Weapons 2</button>
+        <button class="video-btn" onclick="playVideo(3, this)">Fight Card</button>
+        <button class="video-btn" onclick="playVideo(4, this)">Arsenal 1</button>
+        <button class="video-btn" onclick="playVideo(5, this)">Arsenal 2</button>
+        <button class="video-btn" onclick="playVideo(6, this)">Evolution</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © Neil Oliver – Master of Weapons. All rights reserved.
+</footer>
+
+<script>
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // ========== MUSIC ==========
+  const tracks = [
+    'assets/Track1.mp3',
+    'assets/Track2.mp3',
+    'assets/Track3.mp3',
+    'assets/Track4.mp3',
+    'assets/Track5.mp3'
+  ];
+
+  function playTrack(index, btn) {
+    const player = document.getElementById('audioPlayer');
+    player.pause();
+    player.src = tracks[index];
+    player.load();
+    player.play().catch(err => console.log('Audio play error:', err));
+
+    document.querySelectorAll('.track-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // ========== VIDEO (Fixed for Vercel) ==========
+  const videos = [
+    'assets/promo1.mp4',
+    'assets/promo2.mp4',
+    'assets/promo3.mp4',
+    'assets/promo4.mp4',
+    'assets/promo5.mp4',
+    'assets/promo6.mp4',
+    'assets/promo7.mp4'
+  ];
+
+  function playVideo(index, btn) {
+    const player = document.getElementById('videoPlayer');
+
+    player.pause();
+    player.removeAttribute('src');
+    player.load();
+
+    player.src = videos[index];
+    player.load();
+
+    
+
+    document.querySelectorAll('.video-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  // Load first track & first video on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const firstTrackBtn = document.querySelector('.track-btn');
+    const firstVideoBtn = document.querySelector('.video-btn');
+
+    if (firstTrackBtn) playTrack(0, firstTrackBtn);
+    if (firstVideoBtn) playVideo(0, firstVideoBtn);
+  });
+</script>
+</body>
+</html>
+
+  
