@@ -389,6 +389,7 @@
     </div>
   </section>
 
+ <!-- MUSIC -->
   <section id="tab-music" class="tab-content">
     <h2 class="section-title">Music Showcase</h2>
     <div class="media-wrapper">
@@ -403,6 +404,7 @@
     </div>
   </section>
 
+  <!-- VIDEO -->
   <section id="tab-video" class="tab-content">
     <h2 class="section-title">Video Promos</h2>
     <div class="media-wrapper">
@@ -433,6 +435,7 @@
     btn.classList.add('active');
   }
 
+  // ========== MUSIC ==========
   const tracks = [
     'assets/Track1.mp3',
     'assets/Track2.mp3',
@@ -452,6 +455,7 @@
     btn.classList.add('active');
   }
 
+  // ========== VIDEO (Fixed for Vercel) ==========
   const videos = [
     'assets/promo1.mp4',
     'assets/promo2.mp4',
@@ -472,10 +476,13 @@
     player.src = videos[index];
     player.load();
 
+    
+
     document.querySelectorAll('.video-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
 
+  // Load first track & first video on page load
   document.addEventListener('DOMContentLoaded', () => {
     const firstTrackBtn = document.querySelector('.track-btn');
     const firstVideoBtn = document.querySelector('.video-btn');
